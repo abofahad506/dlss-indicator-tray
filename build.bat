@@ -28,7 +28,7 @@ echo === MinGW build ===
 windres resource.rc -O coff -o resource.res.o || exit /b 1
 g++ -municode -std=c++17 -Os -s -static -mwindows ^
     main.cpp resource.res.o -o DlssIndicatorTray.exe ^
-    -luser32 -ladvapi32 -lcomctl32 -lshell32 -lole32 || exit /b 1
+    -luser32 -lgdi32 -ladvapi32 -lcomctl32 -lshell32 -lole32 || exit /b 1
 del resource.res.o 2>nul
 goto :done
 
@@ -38,7 +38,7 @@ rc /nologo /fo resource.res resource.rc || exit /b 1
 cl /nologo /std:c++17 /utf-8 /O1 /Os /MT /D_UNICODE /DUNICODE /EHsc ^
     main.cpp resource.res ^
     /link /SUBSYSTEM:WINDOWS /ENTRY:wWinMainCRTStartup ^
-    user32.lib advapi32.lib comctl32.lib shell32.lib ole32.lib ^
+    user32.lib gdi32.lib advapi32.lib comctl32.lib shell32.lib ole32.lib ^
     /OUT:DlssIndicatorTray.exe || exit /b 1
 del resource.res main.obj 2>nul
 goto :done
